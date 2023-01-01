@@ -7,12 +7,20 @@ import java.io.Serializable;
 @Entity
 @Table(name="tbl-products")
 public class Product implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increament
     private long id;
+    @Column(name="product_name", length = 100)
     private String name;
+    @Column(name = "product_description", length = 500)
     private String description;
+    @Column(name = "product_price")
     private Double price;
+
+    // buat constructor
+
+    public Product() {
+    }
 
     public Product(long id, String name, String description, Double price) {
         this.id = id;
@@ -20,6 +28,8 @@ public class Product implements Serializable {
         this.description = description;
         this.price = price;
     }
+
+    // generate setter getter
 
     public long getId() {
         return id;
