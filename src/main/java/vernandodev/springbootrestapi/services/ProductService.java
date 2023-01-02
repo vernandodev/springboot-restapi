@@ -7,6 +7,7 @@ import vernandodev.springbootrestapi.models.entities.Product;
 import vernandodev.springbootrestapi.models.repos.ProductRepo;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -19,14 +20,18 @@ public class ProductService {
     }
 
     public Product findOne(Long id) {
-        return productRepo.findById(id).get();
+        Optional<Product> temp = productRepo.findById(id);
+        if(!temp.isPresent()) {
+            return null;
+        }
+        return temp.get();
     }
 
     public Iterable<Product> findAll() {
         return productRepo.findAll();
     }
 
-    public void remove(Long id) {
+    public void removeOne(Long id) {
         productRepo.deleteById(id);
     }
 

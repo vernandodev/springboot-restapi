@@ -21,4 +21,19 @@ public class ProductController {
     public Iterable<Product> findAll() {
         return productService.findAll();
     }
+
+    @GetMapping("/{id}")
+    public Product findOne(@PathVariable("id") Long id) {
+        return productService.findOne(id);
+    }
+
+    @PutMapping
+    public Product update(@RequestBody Product product) {
+        return productService.save(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public void removeOne(@PathVariable("id") Long id) {
+        productService.removeOne(id);
+    }
 }
