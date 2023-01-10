@@ -1,6 +1,8 @@
 package vernandodev.springbootrestapi.models.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 
@@ -10,10 +12,13 @@ public class Product implements Serializable {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increament
     private long id;
+    @NotEmpty(message = "Name is required !")
     @Column(name="product_name", length = 100)
     private String name;
+    @NotEmpty(message = "Description is required !")
     @Column(name = "product_description", length = 500)
     private String description;
+    @NotNull(message = "Price is required !")
     @Column(name = "product_price")
     private Double price;
 

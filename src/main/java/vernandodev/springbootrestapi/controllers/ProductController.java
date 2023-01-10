@@ -1,7 +1,13 @@
 package vernandodev.springbootrestapi.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import vernandodev.springbootrestapi.dto.ResponseData;
 import vernandodev.springbootrestapi.models.entities.Product;
 import vernandodev.springbootrestapi.services.ProductService;
 
@@ -13,8 +19,22 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping
-    public Product create(@RequestBody Product product) {
-        return productService.save(product);
+    public ResponseEntity<ResponseData<Product>> create(@Valid @RequestBody Product product, Errors errors) {
+
+        ResponseData<Product> responseData = new ResponseData<>(); // cek validasi
+
+        if(errors.hasErrors()) {
+            for (ObjectError error : errors.getAllErrors()
+                 ) {
+                responseData.getMessages().add(error.getDefaultMessage()); // masukan error messages ke responseData
+            }
+            responseData.setStatus(false);
+            responseData.setPayload(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
+        }
+        responseData.setStatus(true);
+        responseData.setPayload(productService.save(product));
+        return ResponseEntity.ok(responseData);
     }
 
     @GetMapping
@@ -28,8 +48,21 @@ public class ProductController {
     }
 
     @PutMapping
-    public Product update(@RequestBody Product product) {
-        return productService.save(product);
+    public ResponseEntity<ResponseData<Product>> update(@Valid @RequestBody Product product, Errors errors) {
+        ResponseData<Product> responseData = new ResponseData<>();
+
+        if(errors.hasErrors()) {
+            for (ObjectError error : errors.getAllErrors()
+            ) {
+                responseData.getMessages().add(error.getDefaultMessage()); // masukan error messages ke responseData
+            }
+            responseData.setStatus(false);
+            responseData.setPayload(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
+        }
+        responseData.setStatus(true);
+        responseData.setPayload(productService.save(product));
+        return ResponseEntity.ok(responseData);
     }
 
     @DeleteMapping("/{id}")
