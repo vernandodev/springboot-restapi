@@ -21,8 +21,17 @@ public class Product implements Serializable {
     @NotNull(message = "Price is required !")
     @Column(name = "product_price")
     private Double price;
+    @ManyToOne
+    private Category category;
 
-    // buat constructor
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+// buat constructor
 
     public Product() {
     }
