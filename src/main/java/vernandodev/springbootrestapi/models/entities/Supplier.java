@@ -3,6 +3,7 @@ package vernandodev.springbootrestapi.models.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "tbl-suppliers")
@@ -10,14 +11,22 @@ public class Supplier implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(length = 150, nullable = false)
     private String name;
     @Column(length = 200, nullable = false)
     private String address;
-
     @Column(length = 100, nullable = false, unique = true)
     private String email;
+    @ManyToMany(mappedBy = "suppliers")
+    private Set<Product> products;
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
 
     public Long getId() {
         return id;
