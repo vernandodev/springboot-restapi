@@ -8,11 +8,13 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import vernandodev.springbootrestapi.dto.ResponseData;
+import vernandodev.springbootrestapi.dto.SupplierData;
 import vernandodev.springbootrestapi.models.entities.Product;
+import vernandodev.springbootrestapi.models.entities.Supplier;
 import vernandodev.springbootrestapi.services.ProductService;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/product")
 public class ProductController {
     // first inject services
     @Autowired
@@ -68,5 +70,10 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void removeOne(@PathVariable("id") Long id) {
         productService.removeOne(id);
+    }
+
+    @PostMapping("/{id}")
+    public void addSupplier(@RequestBody Supplier supplier, @PathVariable("id") Long productId){
+        productService.addSupplier(supplier, productId);
     }
 }

@@ -1,5 +1,9 @@
 package vernandodev.springbootrestapi.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +13,10 @@ import java.util.Set;
 
 @Entity
 @Table(name="tbl-products")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 public class Product implements Serializable {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increament
@@ -30,6 +38,7 @@ public class Product implements Serializable {
             joinColumns = @JoinColumn(name="product_id"),
             inverseJoinColumns = @JoinColumn(name="supplier_id")
     )
+//    @JsonManagedReference
     private Set<Supplier> suppliers;
 
     public Set<Supplier> getSuppliers() {

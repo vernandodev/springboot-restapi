@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vernandodev.springbootrestapi.models.entities.Product;
+import vernandodev.springbootrestapi.models.entities.Supplier;
 import vernandodev.springbootrestapi.models.repos.ProductRepo;
 
 import java.util.List;
@@ -37,5 +38,15 @@ public class ProductService {
 
     public List<Product> findByName(String name) {
         return productRepo.findByNameContains(name);
+    }
+
+    // method add supplier
+    public void addSupplier(Supplier supplier, Long productId){
+        Product product = findOne(productId);
+        if(product == null){
+            throw new RuntimeException("Product with id : " + productId + " not found");
+        }
+        product.getSuppliers().add(supplier);
+        save(product);
     }
 }
