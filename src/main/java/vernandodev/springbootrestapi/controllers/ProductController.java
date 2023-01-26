@@ -8,6 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import vernandodev.springbootrestapi.dto.ResponseData;
+import vernandodev.springbootrestapi.dto.SearchData;
 import vernandodev.springbootrestapi.dto.SupplierData;
 import vernandodev.springbootrestapi.models.entities.Product;
 import vernandodev.springbootrestapi.models.entities.Supplier;
@@ -75,5 +76,10 @@ public class ProductController {
     @PostMapping("/{id}")
     public void addSupplier(@RequestBody Supplier supplier, @PathVariable("id") Long productId){
         productService.addSupplier(supplier, productId);
+    }
+
+    @PostMapping("/search/name")
+    public Product getProductByName(@RequestBody SearchData searchData){
+        return productService.findProductByName(searchData.getSearchKey());
     }
 }

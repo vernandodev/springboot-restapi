@@ -49,4 +49,8 @@ public class ProductService {
         product.getSuppliers().add(supplier);
         save(product);
     }
+
+    public Product findProductByName(String name){
+        return productRepo.findProductByName(name);
+    }
 }
