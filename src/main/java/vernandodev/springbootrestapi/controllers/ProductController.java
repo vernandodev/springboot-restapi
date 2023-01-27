@@ -14,6 +14,8 @@ import vernandodev.springbootrestapi.models.entities.Product;
 import vernandodev.springbootrestapi.models.entities.Supplier;
 import vernandodev.springbootrestapi.services.ProductService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
@@ -81,5 +83,15 @@ public class ProductController {
     @PostMapping("/search/name")
     public Product getProductByName(@RequestBody SearchData searchData){
         return productService.findProductByName(searchData.getSearchKey());
+    }
+
+    @PostMapping("/search/name/like")
+    public List<Product> getProductByNameLike(@RequestBody SearchData searchData){
+        return productService.findProductByNameLike(searchData.getSearchKey());
+    }
+
+    @GetMapping("/search/category/{categoryId}")
+    public List<Product> getProductByCategory(@PathVariable("categoryId") Long categoryId){
+        return productService.findProductByCategory(categoryId);
     }
 }
