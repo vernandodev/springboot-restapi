@@ -7,12 +7,16 @@ import vernandodev.springbootrestapi.models.entities.Product;
 import vernandodev.springbootrestapi.models.entities.Supplier;
 import vernandodev.springbootrestapi.models.repos.ProductRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
 public class ProductService {
+
+    @Autowired
+    private SupplierService supplierService;
     @Autowired // dependecies injection
     private ProductRepo productRepo;
 
@@ -50,6 +54,7 @@ public class ProductService {
         save(product);
     }
 
+    // CUSTOM QUERY
     public Product findProductByName(String name){
         return productRepo.findProductByName(name);
     }
@@ -59,6 +64,15 @@ public class ProductService {
     }
 
     public List<Product> findProductByCategory(Long categoryId){
-        return productRepo.getProductByCategory(categoryId);
+        return productRepo.findProductByCategory(categoryId);
     }
+
+    public List<Product> findProductBySupplier(Long supplierId) {
+        Supplier supplier = supplierService.findOne(supplierId);
+        if(supplier == null){
+            return new ArrayList<Product>();
+        }
+        return productRepo.findProductBySupplier(supplier);
+    }
+
 }

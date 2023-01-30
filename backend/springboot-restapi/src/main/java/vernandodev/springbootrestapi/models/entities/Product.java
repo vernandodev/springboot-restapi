@@ -13,10 +13,11 @@ import java.util.Set;
 
 @Entity
 @Table(name="tbl-products")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
+// opsi 1 (hanya tampil id tidak lengkap)
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id"
+//)
 public class Product implements Serializable {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increament
@@ -38,7 +39,9 @@ public class Product implements Serializable {
             joinColumns = @JoinColumn(name="product_id"),
             inverseJoinColumns = @JoinColumn(name="supplier_id")
     )
-//    @JsonManagedReference
+    // opsi 2 (tampil lengkap)
+    // (use @JsonManagedReference only displays in one entity in @JsonManageReference)
+    @JsonManagedReference
     private Set<Supplier> suppliers;
 
     public Set<Supplier> getSuppliers() {

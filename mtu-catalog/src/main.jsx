@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
-import Root from './routes/root';
 import Category from './routes/Category';
 import Product from './routes/Product';
 import Home from './routes/Home';
 import Supplier from './routes/Supplier';
 import './css/App.css';
+
 // import Navbar from './components/Navbar';
 
 // const AppLayout = () => (
@@ -16,7 +16,7 @@ import './css/App.css';
 //   </>
 // );
 
-// const ketek = createBrowserRouter([
+// const router = createBrowserRouter([
 //   {
 //     element: <AppLayout />,
 //     children: [
