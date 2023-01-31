@@ -24,4 +24,6 @@ public interface ProductRepo extends CrudRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p WHERE :supplier MEMBER OF p.suppliers")
     public List<Product> findProductBySupplier(@PathParam("supplier") Supplier supplier);
+
+    // Method warisan / Derived query jpa
 }

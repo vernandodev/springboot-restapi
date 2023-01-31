@@ -34,5 +34,10 @@ public class SupplierService {
         supplierRepo.deleteById(id);
     }
 
+    // delivery query
+    public Supplier findByEmailServices(String email){
+        return supplierRepo.findByEmail(email);
+    }
+
 
 }

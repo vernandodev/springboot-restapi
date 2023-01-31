@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import vernandodev.springbootrestapi.dto.ResponseData;
+import vernandodev.springbootrestapi.dto.SearchData;
 import vernandodev.springbootrestapi.dto.SupplierData;
 import vernandodev.springbootrestapi.models.entities.Supplier;
 import vernandodev.springbootrestapi.services.SupplierService;
@@ -67,6 +68,11 @@ public class SupplierController {
         responseData.setStatus(true);
         responseData.setPayload(supplierService.save(supplier));
         return ResponseEntity.ok(responseData);
+    }
+
+    @PostMapping("/search/byemail")
+    public Supplier findByEmail(@RequestBody SearchData searchData){
+        return supplierService.findByEmailServices(searchData.getSearchKey());
     }
 
 
