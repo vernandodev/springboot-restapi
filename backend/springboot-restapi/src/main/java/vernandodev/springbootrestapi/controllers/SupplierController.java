@@ -14,6 +14,8 @@ import vernandodev.springbootrestapi.dto.SupplierData;
 import vernandodev.springbootrestapi.models.entities.Supplier;
 import vernandodev.springbootrestapi.services.SupplierService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/supplier")
 public class SupplierController {
@@ -70,9 +72,19 @@ public class SupplierController {
         return ResponseEntity.ok(responseData);
     }
 
+    // Derived Query
     @PostMapping("/search/byemail")
     public Supplier findByEmail(@RequestBody SearchData searchData){
         return supplierService.findByEmailServices(searchData.getSearchKey());
+    }
+    @PostMapping("/search/byname")
+    public List<Supplier> findByName(@RequestBody SearchData searchData){
+        return supplierService.findByNameServices(searchData.getSearchKey());
+    }
+
+    @PostMapping("/search/byname/startswith")
+    public List<Supplier> findByNameStartsWith(@RequestBody SearchData searchData){
+        return supplierService.findByNameStartsWith(searchData.getSearchKey());
     }
 
 

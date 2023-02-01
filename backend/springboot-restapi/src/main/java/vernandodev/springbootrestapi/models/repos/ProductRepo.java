@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface ProductRepo extends CrudRepository<Product, Long> {
 
-    //custom function di dalam productRepo
+    // By using a manually defined query
+    // custom function in productRepo
     List<Product> findByNameContains(String name);
 
     @Query("SELECT p FROM Product p WHERE p.name = :name") // annotation query for custom query, JPAQL

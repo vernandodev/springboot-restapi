@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import vernandodev.springbootrestapi.models.entities.Supplier;
 import vernandodev.springbootrestapi.models.repos.SupplierRepo;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,6 +38,14 @@ public class SupplierService {
     // delivery query
     public Supplier findByEmailServices(String email){
         return supplierRepo.findByEmail(email);
+    }
+
+    public List<Supplier> findByNameServices(String name){
+        return supplierRepo.findByNameContains(name);
+    }
+
+    public List<Supplier> findByNameStartsWith(String prefix){
+        return supplierRepo.findByNameStartsWith(prefix);
     }
 
 
