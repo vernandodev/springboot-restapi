@@ -87,6 +87,11 @@ public class SupplierController {
         return supplierService.findByNameStartsWith(searchData.getSearchKey());
     }
 
+    @PostMapping("search/2parameters")
+    public List<Supplier> findByNameContainsOrEmailContains(@RequestBody SearchData searchData){
+        return supplierService.findByNameContainsOrEmailContains(searchData.getSearchKey(), searchData.getOtherSearchkey());
+    }
+
 
 
 }
