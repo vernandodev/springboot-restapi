@@ -2,9 +2,11 @@ package vernandodev.springbootrestapi.services;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import vernandodev.springbootrestapi.models.entities.Category;
-import vernandodev.springbootrestapi.models.repos.CategoryRepo;
+import vernandodev.springbootrestapi.models.repos.CategoryRepoCrud;
+import vernandodev.springbootrestapi.models.repos.CategoryRepoPaging;
 
 import java.util.Optional;
 
@@ -12,14 +14,16 @@ import java.util.Optional;
 @Transactional
 public class CategoryService {
     @Autowired // for injector
-    private CategoryRepo categoryRepo;
+    private CategoryRepoCrud categoryRepoCrud;
+    @Autowired
+    private CategoryRepoPaging categoryRepoPaging;
 
     public Category save(Category category){
-        return categoryRepo.save(category);
+        return categoryRepoCrud.save(category);
     }
 
     public Category findOne(Long id){
-        Optional<Category> category = categoryRepo.findById(id);
+        Optional<Category> category = categoryRepoCrud.findById(id);
         if(!category.isPresent()){
             return null;
         }
@@ -27,10 +31,14 @@ public class CategoryService {
     }
 
     public Iterable<Category> findAll(){
-        return categoryRepo.findAll();
+        return categoryRepoCrud.findAll();
     }
 
     public void removeOne(Long id){
-        categoryRepo.deleteById(id);
+        categoryRepoCrud.deleteById(id);
+    }
+
+    public Iterable<Category> findByName(String name, Pageable pageable){
+        return categoryRepoPaging.findByNameContains(name, pageable);
     }
 }
