@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class SpringbootRestapiApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootRestapiApplication.class, args);
 	}

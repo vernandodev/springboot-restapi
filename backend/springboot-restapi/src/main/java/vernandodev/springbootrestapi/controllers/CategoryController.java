@@ -18,6 +18,8 @@ import vernandodev.springbootrestapi.dto.SearchData;
 import vernandodev.springbootrestapi.models.entities.Category;
 import vernandodev.springbootrestapi.services.CategoryService;
 
+import java.util.Arrays;
+
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController {
@@ -89,4 +91,13 @@ public class CategoryController {
         }
         return categoryService.findByName(searchData.getSearchKey(), pageable);
     }
+
+    @PostMapping("/batch")
+    public ResponseEntity<ResponseData<Iterable<Category>>> createBatch(@RequestBody Category[] categories){
+        ResponseData<Iterable<Category>> responseData = new ResponseData<>();
+        responseData.setPayload(categoryService.saveBatch(Arrays.asList(categories)));
+        responseData.setStatus(true);
+        return ResponseEntity.ok(responseData);
+    }
+
 }
